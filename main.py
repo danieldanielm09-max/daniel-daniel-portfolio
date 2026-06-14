@@ -627,12 +627,17 @@ def build_matlab():
                                 border_radius=br(3),
                                 padding=pad(h=5, v=1),
                             ),
-                            ft.Container(
+                            ft.ElevatedButton(
                                 content=ft.Text(
                                     "View Credly Badge ↗" if cred else "View Certificate ↗",
-                                    size=10, color=GOLD,
+                                    size=10, color=BG,
                                 ),
-                                on_click=lambda e, u=url: e.page.launch_url(u),
+                                bgcolor=GOLD,
+                                url=url,
+                                style=ft.ButtonStyle(
+                                    shape=ft.RoundedRectangleBorder(radius=6),
+                                    padding=ft.Padding(left=8, right=8, top=4, bottom=4),
+                                ),
                             ),
                         ]),
                     ],
