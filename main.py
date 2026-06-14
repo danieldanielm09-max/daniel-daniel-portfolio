@@ -500,6 +500,57 @@ def build_github(commits_uri, repo_uri):
     )
 
 
+def open_video(page):
+    """Open video in a BottomSheet panel inside the portfolio."""
+
+    def close_sheet(e):
+        sheet.open = False
+        page.update()
+
+    sheet = ft.BottomSheet(
+        bgcolor=SURFACE,
+        content=ft.Container(
+            padding=pad(h=20, v=20),
+            content=ft.Column(
+                tight=True,
+                spacing=12,
+                controls=[
+                    ft.Row(
+                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                        controls=[
+                            ft.Text("🎬  MechTek App Demo — 1 min",
+                                    size=15, color=GOLD,
+                                    weight=ft.FontWeight.W_500),
+                            ft.IconButton(
+                                icon=ft.Icons.CLOSE,
+                                icon_color=MUTED,
+                                on_click=close_sheet,
+                            ),
+                        ],
+                    ),
+                    ft.Text(
+                        "The video player below is embedded inside this portfolio.",
+                        size=12, color=MUTED,
+                    ),
+                    ft.Container(
+                        height=320,
+                        bgcolor="#08090C",
+                        border_radius=br(10),
+                        border=bdr(0.5, GOLD_BDR),
+                        clip_behavior=ft.ClipBehavior.HARD_EDGE,
+                        content=ft.FletApp(
+                            url="/assets/video_player.html",
+                            expand=True,
+                        ),
+                    ),
+                ],
+            ),
+        ),
+    )
+    page.overlay.append(sheet)
+    sheet.open = True
+    page.update()
+
 def build_blog():
     POSTS = [
         ("Variables & Data Types", "Why Every Value Has a Type",
@@ -579,15 +630,19 @@ def build_blog():
                         ft.Column(spacing=2, controls=[
                             ft.Text("MechTek App Demo", size=16,
                                     color=TEXT, weight=ft.FontWeight.BOLD),
-                            ft.Text("Watch the full 1-minute walkthrough of the MechTek app",
-                                    size=13, color=MUTED),
+                            ft.Text(
+                                "1-minute walkthrough of the MechTek app — "
+                                "click the button below to watch it right here.",
+                                size=13, color=MUTED,
+                            ),
                         ]),
                     ]),
+                    ft.Container(height=4),
                     ft.ElevatedButton(
-                        content=ft.Text("▶  Watch Demo Video", size=14,
+                        content=ft.Text("▶  Watch Demo (plays here)", size=13,
                                         color=BG, weight=ft.FontWeight.W_500),
                         bgcolor=GOLD,
-                        url="https://github.com/danieldanielm09-max/daniel-daniel-portfolio/raw/main/assets/demo.mp4",
+                        on_click=lambda e: open_video(e.page),
                         style=ft.ButtonStyle(
                             shape=ft.RoundedRectangleBorder(radius=8),
                         ),
