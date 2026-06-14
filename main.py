@@ -571,6 +571,33 @@ def build_blog():
             ft.Container(height=6),
             ft.ResponsiveRow(columns=12, spacing=12,
                              run_spacing=12, controls=cards),
+            ft.Container(height=10),
+            ft.Container(
+                content=ft.Column(spacing=12, controls=[
+                    ft.Row(spacing=10, controls=[
+                        ft.Text("🎬", size=22),
+                        ft.Column(spacing=2, controls=[
+                            ft.Text("MechTek App Demo", size=16,
+                                    color=TEXT, weight=ft.FontWeight.BOLD),
+                            ft.Text("Watch the full 1-minute walkthrough of the MechTek app",
+                                    size=13, color=MUTED),
+                        ]),
+                    ]),
+                    ft.ElevatedButton(
+                        content=ft.Text("▶  Watch Demo Video", size=14,
+                                        color=BG, weight=ft.FontWeight.W_500),
+                        bgcolor=GOLD,
+                        url="https://github.com/danieldanielm09-max/daniel-daniel-portfolio/raw/main/assets/demo.mp4",
+                        style=ft.ButtonStyle(
+                            shape=ft.RoundedRectangleBorder(radius=8),
+                        ),
+                    ),
+                ]),
+                bgcolor=SURFACE2,
+                border=bdr(0.5, GOLD_BDR),
+                border_radius=br(12),
+                padding=20,
+            ),
         ]),
     )
 
