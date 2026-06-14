@@ -803,23 +803,6 @@ def build_contact():
 # MAIN
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Section keys used for scroll_to
-KEYS = ["s0","s1","s2","s3","s4","s5","s6"]
-LABELS = ["Home","Timeline","GitHub","Blog","MATLAB","App","Contact"]
-ICONS_OFF = [
-    ft.Icons.HOME_OUTLINED, ft.Icons.TIMELINE_OUTLINED,
-    ft.Icons.CODE_OUTLINED, ft.Icons.ARTICLE_OUTLINED,
-    ft.Icons.SCHOOL_OUTLINED, ft.Icons.PHONE_ANDROID_OUTLINED,
-    ft.Icons.MAIL_OUTLINED,
-]
-ICONS_ON = [
-    ft.Icons.HOME, ft.Icons.TIMELINE,
-    ft.Icons.CODE, ft.Icons.ARTICLE,
-    ft.Icons.SCHOOL, ft.Icons.PHONE_ANDROID,
-    ft.Icons.MAIL,
-]
-
-
 def main(page: ft.Page):
     page.title      = "Daniel Mathew Daniel | Portfolio"
     page.bgcolor    = BG
@@ -827,34 +810,12 @@ def main(page: ft.Page):
     page.padding    = 0
     page.scroll     = None
 
-    # Load assets
+    # ── Load assets ───────────────────────────────────────────────────────
     profile_uri = get_image_uri("profile.jpg",     "image/jpeg")
     commits_uri = get_image_uri("commits.png",     "image/png")
     repo_uri    = get_image_uri("github_repo.png", "image/png")
 
-    # Build section containers, each with a unique key for scroll_to
-    sections = [
-        build_home(profile_uri, page),
-        build_timeline(),
-        build_github(commits_uri, repo_uri),
-        build_blog(),
-        build_matlab(),
-        build_app(),
-        build_contact(),
-    ]
-    # Tag each section with its scroll key
-    for i, sec in enumerate(sections):
-        sec.key = KEYS[i]
-
-    # One big scrollable column — all sections stacked
-    content_col = ft.Column(
-        scroll=ft.ScrollMode.AUTO,
-        expand=True,
-        spacing=0,
-        controls=sections,
-    )
-
-    # ── Colour-cycling accent blob ─────────────────────────────────────────
+    # ── Colour-cycling background blob ────────────────────────────────────
     blob = ft.Container(
         width=500, height=500,
         border_radius=br(250),
@@ -862,9 +823,7 @@ def main(page: ft.Page):
         opacity=0.05,
         blur=ft.Blur(sigma_x=80, sigma_y=80),
         right=-100, top=-100,
-        animate_opacity=ft.Animation(2000, ft.AnimationCurve.EASE_IN_OUT),
     )
-
     COLOURS = [GOLD, "#4A7CFF", "#9B59B6", "#26C6DA", "#E74C3C"]
     colour_idx = [0]
 
@@ -880,97 +839,128 @@ def main(page: ft.Page):
 
     threading.Thread(target=cycle, daemon=True).start()
 
-    # Wrap content + blob in a Stack so blob floats behind
-    content_stack = ft.Stack(
-        expand=True,
-        controls=[blob, content_col],
-    )
-
-    # ── Navigation destinations ────────────────────────────────────────────
-    nav_destinations_rail = [
-        ft.NavigationRailDestination(
-            icon=ICONS_OFF[i], selected_icon=ICONS_ON[i], label=LABELS[i]
+    # ── Build each page as its own scrollable column ───────────────────────
+    def wrap(section):
+        """Wrap a section in a scrollable column with the colour blob behind."""
+        return ft.Column(
+            scroll=ft.ScrollMode.AUTO,
+            expand=True,
+            spacing=0,
+            controls=[
+                ft.Stack(
+                    expand=True,
+                    controls=[blob, section],
+                )
+            ],
         )
-        for i in range(7)
+
+    pages = [
+        wrap(build_home(profile_uri, page)),   # 0 Home
+        wrap(build_timeline()),                 # 1 Timeline
+        wrap(build_github(commits_uri, repo_uri)),  # 2 GitHub
+        wrap(build_blog()),                     # 3 Blog
+        wrap(build_matlab()),                   # 4 MATLAB
+        wrap(build_app()),                      # 5 App
+        wrap(build_contact()),                  # 6 Contact
     ]
 
-    nav_destinations_bar = [
-        ft.NavigationBarDestination(
-            icon=ICONS_OFF[i], selected_icon=ICONS_ON[i], label=LABELS[i]
-        )
-        for i in range(7)
+    # ── Navigation labels and icons ───────────────────────────────────────
+    LABELS   = ["Home","Timeline","GitHub","Blog","MATLAB","App","Contact"]
+    ICONS_OFF = [
+        ft.Icons.HOME_OUTLINED,        ft.Icons.TIMELINE_OUTLINED,
+        ft.Icons.CODE_OUTLINED,        ft.Icons.ARTICLE_OUTLINED,
+        ft.Icons.SCHOOL_OUTLINED,      ft.Icons.PHONE_ANDROID_OUTLINED,
+        ft.Icons.MAIL_OUTLINED,
+    ]
+    ICONS_ON = [
+        ft.Icons.HOME,        ft.Icons.TIMELINE,
+        ft.Icons.CODE,        ft.Icons.ARTICLE,
+        ft.Icons.SCHOOL,      ft.Icons.PHONE_ANDROID,
+        ft.Icons.MAIL,
     ]
 
+    # ── Side rail (desktop) ───────────────────────────────────────────────
     rail = ft.NavigationRail(
         selected_index=0,
         label_type=ft.NavigationRailLabelType.ALL,
         bgcolor=SURFACE,
         indicator_color=GOLD_DIM,
         indicator_shape=ft.RoundedRectangleBorder(radius=8),
-        selected_label_text_style=ft.TextStyle(color=GOLD, size=9),
-        unselected_label_text_style=ft.TextStyle(color=MUTED, size=9),
-        min_width=75,
-        destinations=nav_destinations_rail,
+        selected_label_text_style=ft.TextStyle(color=GOLD, size=10),
+        unselected_label_text_style=ft.TextStyle(color=MUTED, size=10),
+        min_width=80,
+        destinations=[
+            ft.NavigationRailDestination(
+                icon=ICONS_OFF[i], selected_icon=ICONS_ON[i], label=LABELS[i]
+            )
+            for i in range(7)
+        ],
         leading=ft.Container(
             content=ft.Column(
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 spacing=1,
                 controls=[
-                    ft.Text("D.", size=18, color=GOLD,
+                    ft.Text("D.", size=20, color=GOLD,
                             font_family="Georgia",
                             weight=ft.FontWeight.BOLD),
-                    ft.Text("FOLIO", size=7, color=MUTED),
+                    ft.Text("FOLIO", size=8, color=MUTED),
                 ],
             ),
             margin=mgn(b=4),
         ),
     )
 
+    # ── Bottom nav bar (mobile) ───────────────────────────────────────────
     bottom_nav = ft.NavigationBar(
         selected_index=0,
         bgcolor=SURFACE,
         indicator_color=GOLD_DIM,
-        destinations=nav_destinations_bar,
-    )
-
-    def go(idx):
-        rail.selected_index = idx
-        bottom_nav.selected_index = idx
-        try:
-            rail.update()
-            bottom_nav.update()
-        except Exception:
-            pass
-        try:
-            content_col.scroll_to(scroll_key=KEYS[idx], duration=600)
-            page.update()
-        except Exception:
-            pass
-
-    def on_rail(e):
-        go(e.control.selected_index)
-
-    def on_bar(e):
-        go(e.control.selected_index)
-
-    rail.on_change       = on_rail
-    bottom_nav.on_change = on_bar
-
-    # ── Layout containers ──────────────────────────────────────────────────
-    desktop_layout = ft.Row(
-        expand=True, spacing=0,
-        controls=[
-            rail,
-            ft.VerticalDivider(width=1, color="#1A1F2B"),
-            content_stack,
+        destinations=[
+            ft.NavigationBarDestination(
+                icon=ICONS_OFF[i], selected_icon=ICONS_ON[i], label=LABELS[i]
+            )
+            for i in range(7)
         ],
     )
 
-    mobile_layout = ft.Column(
-        expand=True, spacing=0,
-        controls=[content_stack, bottom_nav],
+    # ── Content area — swaps instantly when nav is clicked ────────────────
+    content_area = ft.Container(
+        content=pages[0],
+        expand=True,
+        bgcolor=BG,
     )
 
+    def go(idx):
+        """Switch to the selected page instantly."""
+        content_area.content      = pages[idx]
+        rail.selected_index       = idx
+        bottom_nav.selected_index = idx
+        content_area.update()
+        rail.update()
+        bottom_nav.update()
+
+    rail.on_change       = lambda e: go(e.control.selected_index)
+    bottom_nav.on_change = lambda e: go(e.control.selected_index)
+
+    # ── Desktop layout: side rail + content ───────────────────────────────
+    desktop_layout = ft.Row(
+        expand=True,
+        spacing=0,
+        controls=[
+            rail,
+            ft.VerticalDivider(width=1, color="#1A1F2B"),
+            content_area,
+        ],
+    )
+
+    # ── Mobile layout: content + bottom bar ───────────────────────────────
+    mobile_layout = ft.Column(
+        expand=True,
+        spacing=0,
+        controls=[content_area, bottom_nav],
+    )
+
+    # ── Responsive container ──────────────────────────────────────────────
     layout_container = ft.Container(expand=True, content=desktop_layout)
 
     def apply_layout():
