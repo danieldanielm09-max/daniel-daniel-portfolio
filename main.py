@@ -25,10 +25,14 @@ def asset(name):
     return os.path.join(ASSETS_DIR, name)
 
 def b64(path):
+    if not os.path.exists(path):
+        return ""
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
 def data_uri(path, mime="image/jpeg"):
+    if not os.path.exists(path):
+        return ""
     return f"data:{mime};base64,{b64(path)}"
 
 # ─── COLOUR TOKENS ────────────────────────────────────────────────────────────
@@ -741,8 +745,8 @@ def blog_card(post, video_path=None):
             ),
             ft.Container(
                 content=ft.Text(
-                    f"Video file: {video_path}\n"
-                    "Open with your media player to watch the demo.",
+                    "MechTek App Demo — 1 minute walkthrough\n"
+                    "(Video available in the desktop version)",
                     size=12, color=MUTED, selectable=True,
                 ),
                 bgcolor=SURFACE2,
@@ -976,8 +980,8 @@ def build_app(apk_path):
             feat_row("Offline-capable calculation history"),
         ]),
         ft.Container(height=6),
-        gold_button("⬇  Download APK",
-                    url=f"file://{apk_path}"),
+        gold_button("⬇  Download APK (Android)",
+                    url="https://github.com/danieldanielm09-max/daniel-daniel-portfolio/raw/main/assets/MechTek.apk"),
     ])
 
     flet_section = ft.Container(
@@ -1227,12 +1231,4 @@ def main(page: ft.Page):
 
 
 if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 8550))
-    ft.run(
-        main,
-        assets_dir=ASSETS_DIR,
-        view=ft.AppView.WEB_BROWSER,
-        host="0.0.0.0",
-        port=port,
-    )
+    ft.run(main, assets_dir=ASSETS_DIR)
