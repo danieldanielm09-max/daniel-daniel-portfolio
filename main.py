@@ -90,11 +90,11 @@ def br(r=12):
                            bottom_left=r, bottom_right=r)
 
 def lbl(text):
-    return ft.Text(text.upper(), size=10, color=GOLD,
+    return ft.Text(text.upper(), size=12, color=GOLD,
                    weight=ft.FontWeight.W_500)
 
 def title(text):
-    return ft.Text(text, size=26, color=TEXT,
+    return ft.Text(text, size=30, color=TEXT,
                    weight=ft.FontWeight.BOLD, font_family="Georgia")
 
 def gold_bar():
@@ -106,7 +106,7 @@ def hdr(label, text):
 
 def chip(text):
     return ft.Container(
-        content=ft.Text(text, size=9, color=GOLD),
+        content=ft.Text(text, size=15, color=GOLD),
         padding=pad(h=8, v=3),
         border=bdr(0.5, GOLD_BDR),
         border_radius=br(4),
@@ -116,7 +116,7 @@ def chip(text):
 def code_blk(text):
     return ft.Container(
         content=ft.Text(text, font_family="monospace",
-                        size=11, color=CODE_FG, selectable=True),
+                        size=15, color=CODE_FG, selectable=True),
         bgcolor=CODE_BG,
         border=bdr(0.5, "#1F3040"),
         border_radius=br(8),
@@ -127,12 +127,12 @@ def code_blk(text):
 def feat(text):
     return ft.Row(spacing=8, controls=[
         ft.Container(width=5, height=5, bgcolor=GOLD, border_radius=br(3)),
-        ft.Text(text, size=11, color=MUTED),
+        ft.Text(text, size=15, color=MUTED),
     ])
 
 def gbtn(text, url=None, on_click=None):
     return ft.ElevatedButton(
-        content=ft.Text(text, size=12, color=BG,
+        content=ft.Text(text, size=14, color=BG,
                         weight=ft.FontWeight.W_500),
         bgcolor=GOLD, url=url, on_click=on_click,
         style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8)),
@@ -140,7 +140,7 @@ def gbtn(text, url=None, on_click=None):
 
 def obtn(text, url=None, on_click=None):
     return ft.OutlinedButton(
-        content=ft.Text(text, size=12, color=GOLD),
+        content=ft.Text(text, size=14, color=GOLD),
         url=url, on_click=on_click,
         style=ft.ButtonStyle(
             side=ft.BorderSide(0.5, GOLD),
@@ -163,7 +163,7 @@ def crow(icon, label, val, url=None):
             ft.Text(icon, size=16),
             ft.Column(spacing=1, controls=[
                 ft.Text(label.upper(), size=8, color=MUTED),
-                ft.Text(val, size=12, color=TEXT, selectable=True),
+                ft.Text(val, size=14, color=TEXT, selectable=True),
             ]),
         ]),
         bgcolor=SURFACE,
@@ -253,14 +253,14 @@ def make_photo(profile_uri, page):
 def build_home(profile_uri, page):
     contact_box = ft.Container(
         content=ft.Column(spacing=6, controls=[
-            ft.Row(spacing=6, controls=[ft.Text("📧", size=12),
-                ft.Text("danieldanielm09@gmail.com", color=TEXT, size=11, selectable=True)]),
-            ft.Row(spacing=6, controls=[ft.Text("📍", size=12),
-                ft.Text("Namibia", color=TEXT, size=11)]),
-            ft.Row(spacing=6, controls=[ft.Text("🎓", size=12),
-                ft.Text("UNAM · Mining Engineering · Year 2", color=TEXT, size=11)]),
-            ft.Row(spacing=6, controls=[ft.Text("⎇", size=12),
-                ft.Text("github.com/danieldanielm09-max", color=TEXT, size=11, selectable=True)]),
+            ft.Row(spacing=6, controls=[ft.Text("📧", size=14),
+                ft.Text("danieldanielm09@gmail.com", color=TEXT, size=15, selectable=True)]),
+            ft.Row(spacing=6, controls=[ft.Text("📍", size=14),
+                ft.Text("Namibia", color=TEXT, size=15)]),
+            ft.Row(spacing=6, controls=[ft.Text("🎓", size=14),
+                ft.Text("UNAM · Mining Engineering · Year 2", color=TEXT, size=15)]),
+            ft.Row(spacing=6, controls=[ft.Text("⎇", size=14),
+                ft.Text("github.com/danieldanielm09-max", color=TEXT, size=15, selectable=True)]),
         ]),
         bgcolor="#080A0F",
         border=bdr(0.5, "#1A1F2B"),
@@ -272,7 +272,7 @@ def build_home(profile_uri, page):
     text_col = ft.Column(spacing=0, controls=[
         ft.Container(
             content=ft.Text("✦  Mining Engineer · Developer · Namibia",
-                            size=10, color=GOLD),
+                            size=14, color=GOLD),
             bgcolor=GOLD_DIM,
             border=bdr(0.5, GOLD_BDR),
             border_radius=br(50),
@@ -287,7 +287,7 @@ def build_home(profile_uri, page):
         ft.Container(height=10),
         ft.Container(
             content=ft.Text("Mining Engineering · MATLAB Developer · App Innovator",
-                            size=11, color=MUTED),
+                            size=15, color=MUTED),
             border=bdr_left(2, GOLD),
             padding=pad(l=10),
             margin=mgn(b=12),
@@ -295,7 +295,7 @@ def build_home(profile_uri, page):
         ft.Text(
             "Second-year Mining Engineering student at UNAM — original idea behind "
             "MechTek, a team app for Metallurgical, Mining and Civil modules.",
-            size=12, color=MUTED,
+            size=14, color=MUTED,
         ),
         ft.Container(height=16),
         contact_box,
@@ -312,14 +312,14 @@ def build_home(profile_uri, page):
         controls=[
             ft.Container(height=10),
             ft.Container(
-                content=ft.Text("UNAM · Year 2", size=10, color=GOLD),
+                content=ft.Text("UNAM · Year 2", size=14, color=GOLD),
                 bgcolor=SURFACE2, border=bdr(0.5, GOLD_BDR),
                 border_radius=br(8), padding=pad(h=10, v=4),
                 margin=mgn(b=8),
             ),
             make_photo(profile_uri, page),
             ft.Container(
-                content=ft.Text("Mining Eng. & Developer", size=10,
+                content=ft.Text("Mining Eng. & Developer", size=14,
                                 color=BG, text_align=ft.TextAlign.CENTER),
                 bgcolor=GOLD, border_radius=br(8),
                 padding=pad(h=10, v=5),
@@ -378,10 +378,10 @@ def build_timeline():
             content=ft.Column(spacing=6, controls=[
                 ft.Row(spacing=8, controls=[
                     ft.Container(width=9, height=9, bgcolor=GOLD, border_radius=br(5)),
-                    ft.Text(w, size=9, color=GOLD, weight=ft.FontWeight.W_500),
+                    ft.Text(w, size=15, color=GOLD, weight=ft.FontWeight.W_500),
                 ]),
-                ft.Text(t, size=13, color=TEXT, weight=ft.FontWeight.W_500),
-                ft.Text(b, size=11, color=MUTED),
+                ft.Text(t, size=15, color=TEXT, weight=ft.FontWeight.W_500),
+                ft.Text(b, size=15, color=MUTED),
                 ft.Row(spacing=5, wrap=True, controls=[chip(x) for x in tags]),
             ]),
             bgcolor=SURFACE, border=bdr(0.5, "#1A1F2B"),
@@ -395,7 +395,7 @@ def build_timeline():
             hdr("Assessment 1 of 4", "Project Timeline"),
             ft.Text("Weekly log of my contributions to MechTek — I originated the idea "
                     "and led the Firebase integration track.",
-                    size=12, color=MUTED),
+                    size=14, color=MUTED),
             ft.Container(height=20),
             ft.Column(spacing=0, controls=items),
         ]),
@@ -423,17 +423,17 @@ def build_github(commits_uri, repo_uri):
                 content=ft.Column(spacing=6, controls=[
                     ft.Row(spacing=6, controls=[
                         ft.Container(width=7, height=7, bgcolor=GOLD, border_radius=br(4)),
-                        ft.Text(h, size=10, color=GOLD, font_family="monospace"),
-                        ft.Text("·", color=MUTED, size=10),
-                        ft.Text(d, size=9, color=MUTED),
+                        ft.Text(h, size=14, color=GOLD, font_family="monospace"),
+                        ft.Text("·", color=MUTED, size=14),
+                        ft.Text(d, size=15, color=MUTED),
                         ft.Container(
                             content=ft.Text("✓ Verified", size=8, color=GREEN),
                             bgcolor="#0D2010", border=bdr(0.5, GREEN),
                             border_radius=br(3), padding=pad(h=4, v=1),
                         ),
                     ]),
-                    ft.Text(m, size=12, color=TEXT, weight=ft.FontWeight.W_500),
-                    ft.Text(det, size=10, color=MUTED),
+                    ft.Text(m, size=14, color=TEXT, weight=ft.FontWeight.W_500),
+                    ft.Text(det, size=14, color=MUTED),
                 ]),
                 bgcolor=BG, border=bdr(0.5, "#1A1F2B"),
                 border_radius=br(10), padding=12,
@@ -449,7 +449,7 @@ def build_github(commits_uri, repo_uri):
                     size=12, color=MUTED),
             ft.ResponsiveRow(columns=12, controls=[
                 ft.Column(col={"xs": 12, "md": 8}, controls=[
-                    ft.Text("Commit History", size=10, color=MUTED,
+                    ft.Text("Commit History", size=14, color=MUTED,
                             weight=ft.FontWeight.W_500),
                     ft.Container(height=5),
                     ft.Container(
@@ -462,7 +462,7 @@ def build_github(commits_uri, repo_uri):
                     ),
                 ]),
                 ft.Column(col={"xs": 12, "md": 4}, controls=[
-                    ft.Text("Repository", size=10, color=MUTED,
+                    ft.Text("Repository", size=14, color=MUTED,
                             weight=ft.FontWeight.W_500),
                     ft.Container(height=5),
                     ft.Container(
@@ -475,20 +475,20 @@ def build_github(commits_uri, repo_uri):
                     ),
                 ]),
             ]),
-            ft.Text("COMMIT LOG", size=9, color=GOLD,
+            ft.Text("COMMIT LOG", size=15, color=GOLD,
                     weight=ft.FontWeight.W_500),
             ft.ResponsiveRow(columns=12, spacing=8,
                              run_spacing=8, controls=commit_cards),
             ft.Container(
                 content=ft.Column(spacing=8, controls=[
-                    ft.Text("IMPACT SUMMARY", size=9, color=GOLD,
+                    ft.Text("IMPACT SUMMARY", size=15, color=GOLD,
                             weight=ft.FontWeight.W_500),
                     ft.Text(
                         "My commits resolved two production-blocking issues in MechTek: "
                         "a Firebase permission regression and a dependency mismatch failing "
                         "the APK build. My firebase.js migration to modular SDK reduced "
                         "the JS bundle by ~18%, improving cold-start on low-end Android devices.",
-                        size=11, color=MUTED,
+                        size=15, color=MUTED,
                     ),
                     gbtn("⎇  View GitHub Profile",
                          url="https://github.com/danieldanielm09-max"),
@@ -551,9 +551,9 @@ def build_blog():
                     ft.Text(t, size=14, color=TEXT,
                             font_family="Georgia", weight=ft.FontWeight.BOLD),
                     ft.Container(height=6),
-                    ft.Text(b, size=11, color=MUTED),
+                    ft.Text(b, size=15, color=MUTED),
                     code_blk(code),
-                    ft.Text(b2, size=11, color=MUTED),
+                    ft.Text(b2, size=15, color=MUTED),
                 ]),
                 bgcolor=SURFACE, border=bdr(0.5, "#1A1F2B"),
                 border_radius=br(12), padding=18,
@@ -567,7 +567,7 @@ def build_blog():
             hdr("Assessment 3 of 4", "Technical Blog"),
             ft.Text("Six 'Confidence in Concepts' posts — core programming concepts "
                     "explained through real MechTek engineering problems.",
-                    size=12, color=MUTED),
+                    size=14, color=MUTED),
             ft.Container(height=6),
             ft.ResponsiveRow(columns=12, spacing=12,
                              run_spacing=12, controls=cards),
@@ -613,9 +613,9 @@ def build_matlab():
                             alignment=ft.Alignment(x=0, y=0),
                         ),
                         ft.Column(spacing=4, controls=[
-                            ft.Text(nm, size=12, color=TEXT,
+                            ft.Text(nm, size=14, color=TEXT,
                                     weight=ft.FontWeight.W_500),
-                            ft.Text("MathWorks · 2026", size=9, color=MUTED),
+                            ft.Text("MathWorks · 2026", size=15, color=MUTED),
                             ft.Container(
                                 content=ft.Text(
                                     "Credly Verified" if cred else "Completed ✓",
@@ -630,7 +630,7 @@ def build_matlab():
                             ft.ElevatedButton(
                                 content=ft.Text(
                                     "View Credly Badge ↗" if cred else "View Certificate ↗",
-                                    size=10, color=BG,
+                                    size=14, color=BG,
                                 ),
                                 bgcolor=GOLD,
                                 url=url,
@@ -654,7 +654,7 @@ def build_matlab():
             hdr("Assessment 4 of 4", "MATLAB Achievement Hub"),
             ft.Text("9 completed courses — exceeding the 8 required. "
                     "Each certificate is verifiable. Also holds a Credly badge.",
-                    size=12, color=MUTED),
+                    size=14, color=MUTED),
             ft.Container(height=6),
             ft.ResponsiveRow(columns=12, spacing=8,
                              run_spacing=8, controls=cards),
@@ -682,10 +682,10 @@ def build_app():
                     bgcolor=GOLD, border_radius=br(10),
                     alignment=ft.Alignment(x=0, y=0),
                 ),
-                ft.Text("MechTek", size=11, color=TEXT,
+                ft.Text("MechTek", size=15, color=TEXT,
                         weight=ft.FontWeight.W_500),
                 ft.Text("Mining · Metallurgical\nCivil Engineering",
-                        size=9, color=MUTED, text_align=ft.TextAlign.CENTER),
+                        size=15, color=MUTED, text_align=ft.TextAlign.CENTER),
             ],
         ),
     )
@@ -697,7 +697,7 @@ def build_app():
         ft.Text("I proposed building a single mobile app consolidating tools "
                 "for all three engineering modules — built by a 20-person team "
                 "with me leading the Mining module and Firebase integration.",
-                size=11, color=MUTED),
+                size=15, color=MUTED),
         ft.Column(spacing=4, controls=[
             feat("Mining: blast-hole spacing, explosive load, powder factor"),
             feat("Metallurgical: smelting yield, phase diagram references"),
@@ -716,7 +716,7 @@ def build_app():
             ft.Text("Assisted my brother deploying a Flet asset management web app on Replit. "
                     "Contributed navigation routing, component layout, and styling — "
                     "direct Flet practice that informed how I built this portfolio.",
-                    size=11, color=MUTED),
+                    size=15, color=MUTED),
             ft.Column(spacing=4, controls=[
                 feat("Navigation with ft.NavigationRail"),
                 feat("Replit deployment pipeline"),
@@ -749,8 +749,8 @@ def build_contact():
     def stat(label, val):
         return ft.Column(spacing=0, controls=[
             ft.Row(alignment=ft.MainAxisAlignment.SPACE_BETWEEN, controls=[
-                ft.Text(label, size=11, color=MUTED),
-                ft.Text(val, size=11, color=GOLD, weight=ft.FontWeight.W_500),
+                ft.Text(label, size=15, color=MUTED),
+                ft.Text(val, size=15, color=GOLD, weight=ft.FontWeight.W_500),
             ]),
             ft.Divider(color="#1A1F2B", height=1),
         ])
@@ -775,7 +775,7 @@ def build_contact():
                 font_family="Georgia", weight=ft.FontWeight.BOLD),
         ft.Text("Whether it's about MechTek, MATLAB, or engineering software "
                 "collaboration — reach out anytime.",
-                size=11, color=MUTED),
+                size=15, color=MUTED),
         crow("📧", "Email", "danieldanielm09@gmail.com",
              "mailto:danieldanielm09@gmail.com"),
         crow("⎇",  "GitHub", "danieldanielm09-max",
@@ -794,7 +794,7 @@ def build_contact():
             ]),
             ft.Container(height=16),
             ft.Text("© 2026  Daniel Mathew Daniel · UNAM Mining Engineering",
-                    size=10, color=MUTED, text_align=ft.TextAlign.CENTER),
+                    size=14, color=MUTED, text_align=ft.TextAlign.CENTER),
         ]),
     )
 
@@ -936,10 +936,14 @@ def main(page: ft.Page):
     def go(idx):
         rail.selected_index = idx
         bottom_nav.selected_index = idx
-        content_col.scroll_to(scroll_key=KEYS[idx], duration=500)
         try:
             rail.update()
             bottom_nav.update()
+        except Exception:
+            pass
+        try:
+            content_col.scroll_to(scroll_key=KEYS[idx], duration=600)
+            page.update()
         except Exception:
             pass
 
