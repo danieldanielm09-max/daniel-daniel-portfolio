@@ -863,7 +863,8 @@ def cert_card(icon, name, url, is_credly):
                 ),
                 ft.Container(
                     content=ft.Text(link_label, size=11, color=GOLD),
-                    on_click=lambda e, u=url: e.page.launch_url(u),
+                    url=url,
+                    url_target="_blank",
                     border=ft.Border(
                         bottom=ft.BorderSide(width=0.5, color=GOLD_BDR),
                         left=ft.BorderSide(width=0, color="transparent"),
