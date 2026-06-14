@@ -1227,4 +1227,12 @@ def main(page: ft.Page):
 
 
 if __name__ == "__main__":
-    ft.run(main, assets_dir=ASSETS_DIR)
+    import os
+    port = int(os.environ.get("PORT", 8550))
+    ft.run(
+        main,
+        assets_dir=ASSETS_DIR,
+        view=ft.AppView.WEB_BROWSER,
+        host="0.0.0.0",
+        port=port,
+    )
