@@ -17,6 +17,13 @@ import flet as ft
 import base64
 import os
 
+# Try to load pre-embedded assets (used on Render where no assets folder exists)
+try:
+    from assets_data import PROFILE_B64, COMMITS_B64, REPO_B64
+    EMBEDDED_ASSETS = True
+except ImportError:
+    EMBEDDED_ASSETS = False
+
 # ─── PATHS ────────────────────────────────────────────────────────────────────
 BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
 ASSETS_DIR = os.path.join(BASE_DIR, "assets")
@@ -34,6 +41,25 @@ def data_uri(path, mime="image/jpeg"):
     if not os.path.exists(path):
         return ""
     return f"data:{mime};base64,{b64(path)}"
+
+def get_image_uri(name, mime="image/jpeg"):
+    """Get image as data URI — from file if available, else from embedded assets."""
+    mapping = {
+        "profile.jpg":     ("PROFILE_B64",  "image/jpeg"),
+        "commits.png":     ("COMMITS_B64",  "image/png"),
+        "github_repo.png": ("REPO_B64",     "image/png"),
+    }
+    path = asset(name)
+    if os.path.exists(path):
+        return data_uri(path, mime)
+    # Fall back to embedded base64
+    if EMBEDDED_ASSETS and name in mapping:
+        var_name, detected_mime = mapping[name]
+        import assets_data
+        encoded = getattr(assets_data, var_name, "")
+        if encoded:
+            return f"data:{detected_mime};base64,{encoded}"
+    return ""
 
 # ─── COLOUR TOKENS ────────────────────────────────────────────────────────────
 BG       = "#08090C"
@@ -1127,10 +1153,10 @@ def main(page: ft.Page):
     page.padding = 0
     page.scroll  = None
 
-    # Load assets
-    profile_uri  = data_uri(asset("profile.jpg"),  "image/jpeg")
-    commits_uri  = data_uri(asset("commits.png"),  "image/png")
-    repo_uri     = data_uri(asset("github_repo.png"), "image/png")
+    # Load assets (works both locally and on Render)
+    profile_uri  = get_image_uri("profile.jpg",  "image/jpeg")
+    commits_uri  = get_image_uri("commits.png",  "image/png")
+    repo_uri     = get_image_uri("github_repo.png", "image/png")
     video_path   = asset("demo.mp4")
     apk_path     = asset("MechTek.apk")
 
