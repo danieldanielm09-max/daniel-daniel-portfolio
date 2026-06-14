@@ -969,7 +969,7 @@ def build_app(apk_path):
             size=13, color=MUTED,
         ),
         ft.Text(
-            "Built with React Native and Firebase by a 20-person team, with me leading "
+            "Built with React Native and Firebase by a 15-person team, with me leading "
             "the Mining module and Firebase integration. Available on Android.",
             size=13, color=MUTED,
         ),
@@ -1124,9 +1124,9 @@ def build_contact():
 def main(page: ft.Page):
     page.title   = "Daniel Mathew Daniel | Portfolio"
     page.bgcolor = BG
-    page.theme_mode = ft.ThemeMode.DARK
+    page.theme_mode = ft.ThemeMode.WHITE
     page.padding = 0
-    page.scroll  = None
+    page.scroll  = all
 
     # Load assets
     profile_uri  = data_uri(asset("profile.jpg"),  "image/jpeg")
