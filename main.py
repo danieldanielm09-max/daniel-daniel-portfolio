@@ -501,55 +501,14 @@ def build_github(commits_uri, repo_uri):
 
 
 def open_video(page):
-    """Open video in a BottomSheet panel inside the portfolio."""
-
-    def close_sheet(e):
-        sheet.open = False
-        page.update()
-
-    sheet = ft.BottomSheet(
-        bgcolor=SURFACE,
-        content=ft.Container(
-            padding=pad(h=20, v=20),
-            content=ft.Column(
-                tight=True,
-                spacing=12,
-                controls=[
-                    ft.Row(
-                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                        controls=[
-                            ft.Text("🎬  MechTek App Demo — 1 min",
-                                    size=15, color=GOLD,
-                                    weight=ft.FontWeight.W_500),
-                            ft.IconButton(
-                                icon=ft.Icons.CLOSE,
-                                icon_color=MUTED,
-                                on_click=close_sheet,
-                            ),
-                        ],
-                    ),
-                    ft.Text(
-                        "The video player below is embedded inside this portfolio.",
-                        size=12, color=MUTED,
-                    ),
-                    ft.Container(
-                        height=320,
-                        bgcolor="#08090C",
-                        border_radius=br(10),
-                        border=bdr(0.5, GOLD_BDR),
-                        clip_behavior=ft.ClipBehavior.HARD_EDGE,
-                        content=ft.FletApp(
-                            url="/assets/video_player.html",
-                            expand=True,
-                        ),
-                    ),
-                ],
-            ),
-        ),
-    )
-    page.overlay.append(sheet)
-    sheet.open = True
+    """Open the video player in the same browser tab."""
+    launcher = ft.UrlLauncher()
+    page.overlay.append(launcher)
     page.update()
+    launcher.launch_url(
+        "/assets/video_player.html",
+        web_only_window_name="_self",
+    )
 
 def build_blog():
     POSTS = [
